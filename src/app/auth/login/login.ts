@@ -1,44 +1,34 @@
 import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
+import { CommonModule, NgIf } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, NgIf, ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
 export class LoginComponent {
   loginForm: FormGroup;
   submitted = false;
-  errorMsg = '';
+  errorMsg: string | null = null;
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      email: [''],
+      password: ['']
     });
-  }
-
-  get f() {
-    return this.loginForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
-    this.errorMsg = '';
+    // Bina validation ke directly dashboard navigate karo
+    this.router.navigate(['/dashboard']);
+  }
 
-    if (this.loginForm.invalid) return;
-
-    const { email, password } = this.loginForm.value;
-
-    // Replace this with your real login logic
-    if (email === 'user@example.com' && password === 'password123') {
-      this.router.navigate(['/auth/signup']);
-    } else {
-      this.errorMsg = 'Invalid email or password';
-    }
+  get f() {
+    return this.loginForm.controls;
   }
 }
