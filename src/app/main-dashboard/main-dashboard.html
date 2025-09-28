@@ -1,11 +1,54 @@
-<!-- main-dashboard.component.html -->
 <div class="flex h-screen bg-gray-100">
+
   <!-- Sidebar -->
   <aside class="w-64 bg-white shadow-md hidden md:block">
     <div class="p-4 font-bold text-xl border-b">Inventory</div>
     <nav class="p-4 space-y-2">
-      <a routerLink="/dashboard/masters" class="block px-4 py-2 rounded hover:bg-gray-200">Masters</a>
-      <a routerLink="/dashboard/transactions" class="block px-4 py-2 rounded hover:bg-gray-200">Transactions</a>
+
+      <!-- Masters with collapsible submenu -->
+      <div>
+        <button type="button" (click)="toggleMasters()"
+                class="flex justify-between items-center w-full px-4 py-2 rounded hover:bg-gray-200 focus:outline-none">
+          Masters
+          <span>
+            <svg class="w-4 h-4 inline" [class.transform]="mastersOpen()" [class.rotate-90]="mastersOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </button>
+        <div *ngIf="mastersOpen()" class="pl-4 pt-2 space-y-1">
+          <a routerLink="/dashboard/masters/item-master" class="block px-4 py-2 rounded hover:bg-gray-200">Item Master</a>
+          <a routerLink="/dashboard/masters/unit-master" class="block px-4 py-2 rounded hover:bg-gray-200">Unit Master</a>
+          <a routerLink="/dashboard/masters/category-master" class="block px-4 py-2 rounded hover:bg-gray-200">Category Master</a>
+          <a routerLink="/dashboard/masters/supplier-master" class="block px-4 py-2 rounded hover:bg-gray-200">Supplier Master</a>
+          <a routerLink="/dashboard/masters/customer-master" class="block px-4 py-2 rounded hover:bg-gray-200">Customer Master</a>
+        </div>
+      </div>
+
+      <!-- Transactions with collapsible submenu -->
+      <div>
+        <button type="button" (click)="toggleTransactions()"
+                class="flex justify-between items-center w-full px-4 py-2 rounded hover:bg-gray-200 focus:outline-none">
+          Transactions
+          <span>
+            <svg class="w-4 h-4 inline" [class.transform]="transactionsOpen()" [class.rotate-90]="transactionsOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5l7 7-7 7" />
+            </svg>
+          </span>
+        </button>
+        <div *ngIf="transactionsOpen()" class="pl-4 pt-2 space-y-1">
+          <a routerLink="/dashboard/transactions/purchase-entry" class="block px-4 py-2 rounded hover:bg-gray-200">Purchase Entry</a>
+          <a routerLink="/dashboard/transactions/sales-entry" class="block px-4 py-2 rounded hover:bg-gray-200">Sales Entry</a>
+          <a routerLink="/dashboard/transactions/purchase-return" class="block px-4 py-2 rounded hover:bg-gray-200">Purchase Return</a>
+          <a routerLink="/dashboard/transactions/sales-return" class="block px-4 py-2 rounded hover:bg-gray-200">Sales Return</a>
+          <a routerLink="/dashboard/transactions/stock-adjustment" class="block px-4 py-2 rounded hover:bg-gray-200">Stock Adjustment</a>
+          <a routerLink="/dashboard/transactions/transfer-stock" class="block px-4 py-2 rounded hover:bg-gray-200">Transfer Stock</a>
+        </div>
+      </div>
+
+      <!-- Other main links -->
       <a routerLink="/dashboard/reports" class="block px-4 py-2 rounded hover:bg-gray-200">Reports</a>
       <a routerLink="/dashboard/utilities" class="block px-4 py-2 rounded hover:bg-gray-200">Utilities</a>
       <a routerLink="/dashboard/settings" class="block px-4 py-2 rounded hover:bg-gray-200">Settings</a>
@@ -15,18 +58,59 @@
   <!-- Mobile Sidebar Toggle -->
   <div class="md:hidden fixed top-0 left-0 w-full bg-white shadow z-10 flex items-center justify-between px-4 py-2">
     <div class="font-bold text-lg">Inventory</div>
-    <button (click)="toggleSidebar()" class="text-gray-600">
-      ☰
-    </button>
+    <button (click)="toggleSidebar()" class="text-gray-600">☰</button>
   </div>
 
   <!-- Mobile Sidebar -->
-  <aside *ngIf="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden">
+  <aside *ngIf="sidebarOpen()" class="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden">
     <div class="w-64 bg-white h-full shadow-md p-4">
       <button (click)="toggleSidebar()" class="mb-4 text-gray-600">✕ Close</button>
       <nav class="space-y-2">
-        <a routerLink="/dashboard/masters" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Masters</a>
-        <a routerLink="/dashboard/transactions" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Transactions</a>
+
+        <!-- Masters with collapsible submenu -->
+        <div>
+          <button type="button" (click)="toggleMasters()"
+                  class="flex justify-between items-center w-full px-4 py-2 rounded hover:bg-gray-200 focus:outline-none">
+            Masters
+            <span>
+              <svg class="w-4 h-4 inline" [class.transform]="mastersOpen()" [class.rotate-90]="mastersOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </button>
+          <div *ngIf="mastersOpen()" class="pl-4 pt-2 space-y-1">
+            <a routerLink="/dashboard/masters/item-master" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Item Master</a>
+            <a routerLink="/dashboard/masters/unit-master" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Unit Master</a>
+            <a routerLink="/dashboard/masters/category-master" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Category Master</a>
+            <a routerLink="/dashboard/masters/supplier-master" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Supplier Master</a>
+            <a routerLink="/dashboard/masters/customer-master" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Customer Master</a>
+          </div>
+        </div>
+
+        <!-- Transactions with collapsible submenu -->
+        <div>
+          <button type="button" (click)="toggleTransactions()"
+                  class="flex justify-between items-center w-full px-4 py-2 rounded hover:bg-gray-200 focus:outline-none">
+            Transactions
+            <span>
+              <svg class="w-4 h-4 inline" [class.transform]="transactionsOpen()" [class.rotate-90]="transactionsOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </button>
+          <div *ngIf="transactionsOpen()" class="pl-4 pt-2 space-y-1">
+            <a routerLink="/dashboard/transactions/purchase-entry" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Purchase Entry</a>
+            <a routerLink="/dashboard/transactions/sales-entry" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Sales Entry</a>
+            <a routerLink="/dashboard/transactions/purchase-return" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Purchase Return</a>
+            <a routerLink="/dashboard/transactions/sales-return" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Sales Return</a>
+            <a routerLink="/dashboard/transactions/stock-adjustment" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Stock Adjustment</a>
+            <a routerLink="/dashboard/transactions/transfer-stock" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Transfer Stock</a>
+          </div>
+        </div>
+
+        <!-- Other main links -->
         <a routerLink="/dashboard/reports" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Reports</a>
         <a routerLink="/dashboard/utilities" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Utilities</a>
         <a routerLink="/dashboard/settings" (click)="toggleSidebar()" class="block px-4 py-2 rounded hover:bg-gray-200">Settings</a>
@@ -34,7 +118,7 @@
     </div>
   </aside>
 
-  <!-- Main Content -->
+  <!-- Main content area -->
   <main class="flex-1 overflow-auto mt-12 md:mt-0 p-4">
     <router-outlet></router-outlet>
   </main>

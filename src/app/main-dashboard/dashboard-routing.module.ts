@@ -9,28 +9,28 @@ export const routes: Routes = [
       {
        path: 'masters',
       loadChildren: () =>
-        import('../masters/masters-module').then(m => m.MastersModule)
+        import('../Modules/masters/masters-module').then(m => m.MastersModule)
     }
 ,
-    //   {
-    //     path: 'transactions',
-    //     loadChildren: () =>
-    //       import('./transactions/transactions.module').then(m => m.TransactionsModule)
-    //   },
+      {
+        path: 'transactions',
+        loadChildren: () =>
+          import('../Modules/transactions/transactions-module').then(m => m.TransactionsModule)
+      },
     //   {
     //     path: 'reports',
     //     loadChildren: () =>
-    //       import('./reports/reports.module').then(m => m.ReportsModule)
+    //       import('../Modules/reports/reports.module').then(m => m.ReportsModule)
     //   },
     //   {
     //     path: 'utilities',
     //     loadChildren: () =>
-    //       import('./utilities/utilities.module').then(m => m.UtilitiesModule)
+    //       import('../Modules/utilities/utilities.module').then(m => m.UtilitiesModule)
     //   },
     //   {
     //     path: 'settings',
     //     loadChildren: () =>
-    //       import('./settings/settings.module').then(m => m.SettingsModule)
+    //       import('../Modules/settings/settings.module').then(m => m.SettingsModule)
     //   },
       {
         path: '',
